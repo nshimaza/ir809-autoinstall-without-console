@@ -76,11 +76,11 @@ discovery aborted, the EEM applet starts execution.
 
 An EEM applet is basically a sequence of command line input but also supports
 some variable manipulations and flow control with logics.  In this demo the
-applet check if specified IOS bundle image is already on the `flash:` file
-system on the IR809 and download from the TFTP server when it doesn't exist.
-After downloading completed, it performs disk re-partitioning for IOx guest
-OS and `bundle install` against the bundle image.  With this process, all
-IOS and IOx are refreshed.
+applet checks if specified IOS bundle image is already on the `flash:` file
+system on the IR809.  If the bundle image doesn't present, download it from
+the TFTP server.  After downloading completed, it performs disk
+re-partitioning for IOx guest OS and `bundle install` against the bundle
+image.  With this process, all IOS and IOx are refreshed.
 
 Finally, the applet downloads startup-config from
 `tftp://192.168.0.253/common.cfg`, save it to NVRAM, then reload the router.
