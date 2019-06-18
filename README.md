@@ -97,6 +97,8 @@ configurations.
 - line configurations for telnet access
 - Some necessary stuffs for IOx (IPv6, DHCP pool, NAT, virtual console etc)
 
+See `common.cfg` for more detail.
+
 # Caveat
 
 The `network-confg` in this demo doesn't work with factory reset procedure.
@@ -148,3 +150,46 @@ allows http URL schema such like `http://192.168.0.253/FCW2111004V.cfg`
 for configuration source as well as TFTP so that you can develop custom
 web application to generate configuration dynamically.  Though it can be done
 with TFTP but it is much easier with HTTP.
+
+# Additional notes for Mac users
+
+Start temporary TFTP server on Mac.
+
+```console
+sudo launchctl load -w /System/Library/LaunchDaemons/tftp.plist
+```
+
+Default folder for TFTP server is `/private/tftpboot`.
+
+Verify TFTP server is running.
+
+```shell-session
+$ sudo lsof -i:69
+Password:
+COMMAND PID USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
+launchd   1 root    9u  IPv6 0x6e2ffc2a55c8e63d      0t0  UDP *:tftp
+launchd   1 root   49u  IPv6 0x6e2ffc2a55c8e63d      0t0  UDP *:tftp
+launchd   1 root   50u  IPv4 0x6e2ffc2a55c93515      0t0  UDP *:tftp
+launchd   1 root   51u  IPv4 0x6e2ffc2a55c93515      0t0  UDP *:tftp
+$
+```
+
+Stop TFTP server.
+
+```console
+sudo launchctl unload -w /System/Library/LaunchDaemons/tftp.plist
+```
+
+Install `isc-dhcpd` via brew.
+
+```console
+brew install isc-dhcp
+```
+
+You will find `/usr/local/etc/dhcpd.conf` for its configuration file.
+
+Run DHCP server foreground.  Replace `en?` with your NIC.
+
+```console
+sudo /usr/local/sbin/dhcpd -f -d -cf /usr/local/etc/dhcpd.conf en?
+```
