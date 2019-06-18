@@ -144,7 +144,7 @@ TFTP server.
 
 In this demo, we solely used TFTP server for configuration source but you
 can use HTTP server at the final stage.  The `copy` command of Cisco IOS
-allows http URL schema such like 'http://192.168.0.253/FCW2111004V.cfg`
+allows http URL schema such like `http://192.168.0.253/FCW2111004V.cfg`
 for configuration source as well as TFTP so that you can develop custom
 web application to generate configuration dynamically.  Though it can be done
 with TFTP but it is much easier with HTTP.
