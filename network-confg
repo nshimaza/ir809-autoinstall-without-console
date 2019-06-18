@@ -1,0 +1,26 @@
+event manager applet bootstrap
+ event syslog pattern "PNP-6-PNP_DISCOVERY_STOPPED" maxrun 3600
+ action 001   cli command "enable"
+ action 002   set bundle "ir800-universalk9-bundle.SPA.157-3.M4b.bin"
+ action 003.0 puts "check if $bundle is already downloaded."
+ action 003.1 cli command "dir flash: | include $bundle"
+ action 003.2 string match "*$bundle*" "$_cli_result"
+ action 003.3 if $_string_result ne "1"
+ action 003.4  puts "$bundle does not present.  Start downloading."
+ action 003.5  cli command "copy tftp://192.168.0.253/$bundle flash:" pattern "Destination"
+ action 003.6  cli command ""
+ action 003.7  puts "Download $bundle done."
+ action 003.8 end
+ action 004.0 puts "guest-os 1 disk-repartition 1 start"
+ action 004.1 cli command "guest-os 1 disk-repartition 1" pattern "Continue"
+ action 004.2 cli command "y"
+ action 004.3 puts "guest-os 1 disk-repartition 1 done"
+ action 005.0 puts "bundle install start"
+ action 005.1 cli command "bundle install flash:$bundle"
+ action 005.3 puts "bundle install done"
+ action 006.0 puts "Download startup-config start"
+ action 006.1 cli command "copy tftp://192.168.0.253/common.cfg startup-config" pattern "Destination"
+ action 006.2 cli command ""
+ action 006.3 puts "Download startup-config done"
+ action 007   reload
+end
