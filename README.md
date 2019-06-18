@@ -58,6 +58,9 @@ subnet 192.168.0.0 netmask 255.255.255.0 {
 Once the AutoInstall process succeed, you can telnet to the IR809's address
 192.168.0.1 and login to IOS with username:root / password:cisco.
 
+You can also access to IOx Local Manager via https://192.168.0.1:8443/ with
+same login credential above.
+
 # How does it works?
 
 When IR809 bootstraps, it checks if `startup-config` presents.  If there is
