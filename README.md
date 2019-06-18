@@ -10,7 +10,7 @@ no typical RJ45 Cisco console port on this product.  This is a little bit
 annoying.
 
 Fortunately, IR809 comes with a bunch of Cisco IOS features for automated
-provisioning such like AutoInstall, WSMA, Plag and Play Agent.  With those
+provisioning such like AutoInstall, WSMA, Plug and Play Agent.  With those
 features you can get initial access to IOS CLI via telnet or SSH, so that
 you can perform farther configurations.
 
