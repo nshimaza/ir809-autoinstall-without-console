@@ -107,5 +107,44 @@ cycle it.
 # Next step
 
 For simplicity, this demonstration configure any IR809 to exact same
-configuration.  You can differentiate configuration per IR809 unit basis
-using serial number.
+configuration.  You can differentiate configuration per unit basis using
+serial number.
+
+Replace following part of `network-confg`
+
+```
+ action 006.0 puts "Download startup-config start"
+ action 006.1 cli command "copy tftp://192.168.0.253/common.cfg startup-config" pattern "Destination"
+ action 006.2 cli command ""
+ action 006.3 puts "Download startup-config done"
+```
+
+with following.
+
+```
+ action 006.0 puts "Download startup-config start"
+ action 006.1 set serial "none"
+ action 006.2 cli command "show version | include Processor board ID"
+ action 006.3 regexp "Processor board ID ([0-9a-zA-Z]*)" "$_cli_result" dummy serial
+ action 006.4 cli command "copy tftp://192.168.0.253/$serial.cfg startup-config" pattern "Destination"
+ action 006.5 cli command ""
+ action 006.6 puts "Download startup-config done"
+ action 007   reload
+```
+
+Or, replace entire `network-confg` with `network-confg-with-serial`
+(rename `network-confg-with-serial` to `network-confg`).
+
+Now the EEM applet will download `tftp://192.168.0.253/<serial number>.cfg`
+instead of `tftp://192.168.0.253/common.cfg`.  For example, if your serial
+number is FCW2111004V, the applet downloads `FCW2111004V.cfg` from the
+TFTP server.
+
+## Using web server instead of TFTP server
+
+In this demo, we solely used TFTP server for configuration source but you
+can use HTTP server at the final stage.  The `copy` command of Cisco IOS
+allows http URL schema such like 'http://192.168.0.253/FCW2111004V.cfg`
+for configuration source as well as TFTP so that you can develop custom
+web application to generate configuration dynamically.  Though it can be done
+with TFTP but it is much easier with HTTP.
