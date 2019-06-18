@@ -14,9 +14,10 @@ provisioning such like AutoInstall, WSMA, Plug and Play Agent.  With those
 features you can get initial access to IOS CLI via telnet or SSH, so that
 you can perform farther configurations.
 
-This repo uses AutoInstall, the most legacy auto provisioning feature, and
-gives you consistent IOS software bundle installation and first CLI access
-via telnet without involving screw driver to access to the USB console.
+This repo uses AutoInstall, the most legacy auto provisioning feature
+available for almost all Cisco IOS and IOS-XE based products, and gives
+you consistent IOS software bundle installation and first CLI access via
+telnet without involving screw driver.
 
 # Usage
 
